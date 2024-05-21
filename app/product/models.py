@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from .managers import CategoryManager, ProductManager
+from .enums import STATUS_CHOICES
 
 
 class Category(models.Model):
@@ -10,6 +11,8 @@ class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
+    is_available = models.BooleanField(default=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Active')
 
     def __str__(self):
         return self.name
